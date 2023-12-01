@@ -2,6 +2,7 @@ package Main;
 
 import Models.Automovil;
 import Models.Motocicleta;
+import Models.PersistenciaParqueadero;
 import Models.Vehiculo;
 
 import static spark.Spark.*;
@@ -34,12 +35,6 @@ public class Main {
         motos.add(moto);
 
         // Definir endpoints
-        // Por defecto 
-        get("/motocicleta", (req, res) -> {
-            res.type("application/json");
-            return gson.toJson(moto);
-        });
-
         // Listado de automovile
         get("/automoviles", (req, res) -> {
             res.type("application/json");
@@ -145,7 +140,7 @@ public class Main {
         });
 
         //  automóviles actuales en el parqueadero
-        get("/AutomovilesActuales", (req, res) -> {
+        get("/automovilesActuales", (req, res) -> {
             res.type("application/json");
 
             LinkedList<Vehiculo> automovilesActuales = new LinkedList<>();
@@ -247,6 +242,13 @@ public class Main {
             }
 
             return new Gson().toJson(totalGanancias);
+        });
+        
+        get("/cerrarPrograma", (req, res) -> {
+            PersistenciaParqueadero.guardarAutomoviles(automoviles);
+            PersistenciaParqueadero.guardarMotos(motos);
+            stop(); // Detiene el servidor Spark
+            return "Programa cerrado. Datos guardados.";
         });
     }
 }
