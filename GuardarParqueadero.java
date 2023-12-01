@@ -18,7 +18,6 @@ public class GuardarParqueadero {
             Vehiculo[] automovilesArray = gson.fromJson(reader, Vehiculo[].class);
             return new LinkedList<>(Arrays.asList(automovilesArray));
         } catch (IOException e) {
-            // Manejar la excepción si el archivo no existe o hay un problema de lectura
             return new LinkedList<>();
         }
     }
@@ -28,7 +27,6 @@ public class GuardarParqueadero {
             Motocicleta[] motosArray = gson.fromJson(reader, Motocicleta[].class);
             return new LinkedList<>(Arrays.asList(motosArray));
         } catch (IOException e) {
-            // Manejar la excepción si el archivo no existe o hay un problema de lectura
             return new LinkedList<>();
         }           
     }
@@ -37,7 +35,6 @@ public class GuardarParqueadero {
         try (FileWriter writer = new FileWriter(AUTOMOVILES_FILE)) {
             gson.toJson(automoviles.toArray(), writer);
         } catch (IOException e) {
-            // Manejar la excepción si hay un problema al escribir en el archivo
         }
     }
 
@@ -45,7 +42,6 @@ public class GuardarParqueadero {
         try (FileWriter writer = new FileWriter(MOTOS_FILE)) {
             gson.toJson(motos.toArray(), writer);
         } catch (IOException e) {
-            // Manejar la excepción si hay un problema al escribir en el archivo
         }
     }
 }
